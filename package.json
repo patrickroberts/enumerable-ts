@@ -1,0 +1,15 @@
+{
+  "name": "enumerable-ts",
+  "version": "0.0.0-beta",
+  "description": "",
+  "main": "src/global.js",
+  "keywords": [],
+  "author": "Patrick Roberts",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^10.12.0"
+  },
+  "devDependencies": {
+    "typescript": "^3.1.3"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "lib": ["es2015"],
+    "module": "commonjs",
+    "strict": true,
+    "target": "es6"
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
