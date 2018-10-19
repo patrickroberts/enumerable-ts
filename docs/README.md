@@ -1,7 +1,5 @@
 # Documentation
 
----
-
 * [Callbacks](callbacks.md)
 * [`Enumerable<TSource>`](Enumerable.md)
 * [`EnumerableConstructor`](EnumerableConstructor.md)

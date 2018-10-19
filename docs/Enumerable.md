@@ -1,7 +1,5 @@
 # Documentation
 
----
-
 * [Callbacks](callbacks.md)
 * `Enumerable<TSource>`
 * [`EnumerableConstructor`](EnumerableConstructor.md)
@@ -12,9 +10,9 @@
 * [`IOrderedEnumerable<TSource>`](IOrderedEnumerable.md)
 * [Built-in Iterables](iterables.md)
 
-## `Enumerable<TSource>`
-
 ---
+
+## `Enumerable<TSource>`
 
 ```ts
 class Enumerable<TSource> implements IEnumerable<TSource> {

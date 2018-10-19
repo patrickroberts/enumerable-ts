@@ -1,7 +1,5 @@
 # Documentation
 
----
-
 * [Callbacks](callbacks.md)
 * [`Enumerable<TSource>`](Enumerable.md)
 * [`EnumerableConstructor`](EnumerableConstructor.md)
@@ -12,9 +10,9 @@
 * [`IOrderedEnumerable<TSource>`](IOrderedEnumerable.md)
 * [Built-in Iterables](iterables.md)
 
-## `Grouping<TKey, TSource>`
-
 ---
+
+## `Grouping<TKey, TSource>`
 
 ```ts
 class Grouping<TKey, TSource> extends Enumerable<TSource> {

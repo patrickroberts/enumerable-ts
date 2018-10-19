@@ -1,15 +1,11 @@
 # enumerable-ts
 
----
-
 A port of System.Linq.Enumerable from the .NET framework to TypeScript, using a
 unique and safe design pattern which directly exposes the Enumerable class as a
 collection of polymorphic extension methods to all of the classes defined in the
 core language specification that implement the iterable protocol.
 
 ## Why enumerable-ts?
-
----
 
 enumerable-ts is designed to fulfill the same purpose as the IEnumerable
 interface from C#. It provides a collection of extension methods to the built-in
@@ -21,9 +17,9 @@ provide a way of expressing deferred execution consumed through the iterator
 protocol. This allows complex queries to be constructed and iterated without
 buffering intermediate copies of the entire underlying collection in memory.
 
-## Usage
-
 ---
+
+## Usage
 
 #### Installing
 
@@ -43,11 +39,11 @@ import 'enumerable-ts'
 require('enumerable-ts')
 ```
 
+---
+
 # [Documentation](docs/)
 
 ## FAQ
-
----
 
 #### Why are `concat()`, `join()`, and `reverse()` only on `Enumerable` and not on the `IEnumerable` interface?
 
@@ -63,8 +59,6 @@ polymorphism.
 
 ## Roadmap
 
----
-
 - [ ] Documentation of usage with example code
 - [x] Full port of core [`System.Linq.Enumerable`](https://docs.microsoft.com/en-us/dotnet/api/system.linq.enumerable) methods
 - [ ] Full port of [MoreLINQ](https://github.com/morelinq/MoreLINQ) methods
@@ -76,13 +70,9 @@ polymorphism.
 
 ## Contributing
 
----
-
 Do you have feature requests, bug reports, or ideas for improving this project? Please open new issues on the [github repository](https://github.com/patrickroberts/enumerable-ts) with details about your inquiry.
 
 ## License
-
----
 
 Copyright © 2018 Patrick Roberts
 

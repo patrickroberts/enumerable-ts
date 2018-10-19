@@ -1,7 +1,5 @@
 # Documentation
 
----
-
 * [Callbacks](callbacks.md)
 * [`Enumerable<TSource>`](Enumerable.md)
 * [`EnumerableConstructor`](EnumerableConstructor.md)
@@ -12,9 +10,9 @@
 * [`IOrderedEnumerable<TSource>`](IOrderedEnumerable.md)
 * Built-in Iterables
 
-## Built-in Iterables
-
 ---
+
+## Built-in Iterables
 
 ```ts
 interface Array<T> extends IEnumerable<T> { }
