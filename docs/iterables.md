@@ -10,8 +10,6 @@
 * [`IOrderedEnumerable<TSource>`](IOrderedEnumerable.md)
 * Built-in Iterables
 
----
-
 ## Built-in Iterables
 
 ```ts

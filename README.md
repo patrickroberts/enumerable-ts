@@ -17,8 +17,6 @@ provide a way of expressing deferred execution consumed through the iterator
 protocol. This allows complex queries to be constructed and iterated without
 buffering intermediate copies of the entire underlying collection in memory.
 
----
-
 ## Usage
 
 #### Installing
@@ -38,8 +36,6 @@ import 'enumerable-ts'
 ```js
 require('enumerable-ts')
 ```
-
----
 
 # [Documentation](docs/)
 

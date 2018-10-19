@@ -1,9 +1,24 @@
 {
   "name": "enumerable-ts",
   "version": "0.0.0-beta",
-  "description": "",
+  "description": "A port of System.Linq.Enumerable from the .NET framework to TypeScript",
+  "directories": {
+    "doc": "docs",
+    "lib": "src"
+  },
   "main": "src/global.js",
-  "keywords": [],
+  "keywords": [
+    "enumerable",
+    "iterable",
+    "iterator",
+    "lazy",
+    "interface",
+    "extension"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/patrickroberts/enumerable-ts.git"
+  },
   "author": "Patrick Roberts",
   "license": "MIT",
   "dependencies": {
