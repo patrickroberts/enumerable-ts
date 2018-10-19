@@ -19,7 +19,7 @@ Object.defineProperty(global, 'Enumerable', {
   value: Enumerable
 })
 
-const TypedArray: TypedArrayConstructor = Object.getPrototypeOf (Uint8Array)
+const TypedArray: TypedArrayConstructor = Object.getPrototypeOf(Uint8Array)
 
 for (const Constructor of [Array, Map, TypedArray, Set, String]) {
   assert.strictEqual(
