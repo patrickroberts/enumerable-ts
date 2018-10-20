@@ -24,5 +24,7 @@ class Enumerable<TSource> implements IEnumerable<TSource> {
   join<TInner, TKey, TResult> (this: IEnumerable<TSource>, inner: IEnumerable<TInner>, selectOuter: IndexedSelectFunction<TSource, TKey>, selectInner: IndexedSelectFunction<TInner, TKey>, selectResult: ResultFunction<TSource, TInner, TResult>, equality?: EqualityFunction<TKey>): Enumerable<TResult>
 
   reverse (this: IEnumerable<TSource>): Enumerable<TSource>
+
+  toJSON (this: IEnumerable<TSource>): IEnumerable<TSource>
 }
 ```

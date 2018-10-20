@@ -16,7 +16,7 @@ import {
 } from './util'
 
 export interface EnumerableConstructor {
-  readonly prototype: Enumerable<any>
+  readonly prototype: IEnumerable<any>
 
   new<TSource> (iterator: () => IterableIterator<TSource>, compare?: undefined): Enumerable<TSource>
   new<TSource> (iterator: () => IterableIterator<TSource>, compare: CompareFunction<TSource>): IOrderedEnumerable<TSource>
@@ -32,7 +32,7 @@ export interface EnumerableConstructor {
 }
 
 export interface GroupingConstructor extends EnumerableConstructor {
-  readonly prototype: Grouping<any, any>
+  readonly prototype: IGrouping<any, any>
 
   new<TSource, TKey> (iterator: () => IterableIterator<TSource>, key: TKey): Grouping<TKey, TSource>
   new<TSource, TKey> (iterator: () => IterableIterator<TSource>, compare: undefined, key: TKey): Grouping<TSource, TKey>
@@ -97,7 +97,6 @@ export interface IEnumerable<TSource> {
   takeLast (this: IEnumerable<TSource>, count: number): Enumerable<TSource>
   takeWhile (this: IEnumerable<TSource>, predicate: PredicateFunction<TSource>): Enumerable<TSource>
   toArray (this: IEnumerable<TSource>): TSource[]
-  toJSON (this: IEnumerable<TSource>): IEnumerable<TSource>
   toMap<TKey> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>): Map<TKey, TSource>
   toMap<TKey, TValue> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>, selectValue: IndexedSelectFunction<TSource, TValue>): Map<TKey, TValue>
   toSet (this: IEnumerable<TSource>): Set<TSource>
@@ -602,8 +601,10 @@ export class Enumerable<TSource> implements IEnumerable<TSource> {
   sequenceEqual (this: IEnumerable<TSource>, second: IEnumerable<TSource>, equality: EqualityFunction<TSource> = equalityFn): boolean {
     const iterator1 = this[Symbol.iterator]()
     const iterator2 = second[Symbol.iterator]()
+    let { value: value1, done: done1 } = iterator1.next()
+    let { value: value2, done: done2 } = iterator2.next()
 
-    for (let { value: value1, done: done1 } = iterator1.next(), { value: value2, done: done2 } = iterator2.next(); !done1 || !done2; { value: value1, done: done1 } = iterator1.next(), { value: value2, done: done2 } = iterator2.next()) {
+    for (; !done1 || !done2; { value: value1, done: done1 } = iterator1.next(), { value: value2, done: done2 } = iterator2.next()) {
       if (done1 || done2 || !equality(value1, value2)) {
         return false
       }
@@ -731,10 +732,6 @@ export class Enumerable<TSource> implements IEnumerable<TSource> {
   }
 
   thenBy (this: IOrderedEnumerable<TSource>, compare: CompareFunction<TSource>): IOrderedEnumerable<TSource> {
-    if (this.compare === undefined) {
-      throw new TypeError('thenBy of unordered enumerable')
-    }
-
     return new Enumerable(function * (this: IOrderedEnumerable<TSource>, compare: CompareFunction<TSource>) {
       const iterator = this[Symbol.iterator]()
       let { value, done } = iterator.next()
@@ -742,20 +739,16 @@ export class Enumerable<TSource> implements IEnumerable<TSource> {
       while (!done) {
         const array: TSource[] = [value]
 
-        for ({ value, done } = iterator.next(); !done && !(this.compare as CompareFunction<TSource>)(array[array.length - 1], value); { value, done } = iterator.next()) {
+        for ({ value, done } = iterator.next(); !done && !this.compare(array[array.length - 1], value); { value, done } = iterator.next()) {
           array.push(value)
         }
 
         yield * array.sort(compare)
       }
-    }.bind(this, this.compare, compare), (a, b) => (this.compare as CompareFunction<TSource>)(a, b) || compare(a, b)) as IOrderedEnumerable<TSource>
+    }.bind(this, this.compare, compare), (a, b) => this.compare(a, b) || compare(a, b)) as IOrderedEnumerable<TSource>
   }
 
   thenByDescending (this: IOrderedEnumerable<TSource>, compare: CompareFunction<TSource>): IOrderedEnumerable<TSource> {
-    if (this.compare === undefined) {
-      throw new TypeError('thenByDescending of unordered enumerable')
-    }
-
     const compareDescending: CompareFunction<TSource> = (a: TSource, b: TSource) => -compare(a, b)
 
     return new Enumerable(function * (this: IOrderedEnumerable<TSource>, compare: CompareFunction<TSource>) {
@@ -765,13 +758,13 @@ export class Enumerable<TSource> implements IEnumerable<TSource> {
       while (!done) {
         const array: TSource[] = [value]
 
-        for ({ value, done } = iterator.next(); !done && !(this.compare as CompareFunction<TSource>)(array[array.length - 1], value); { value, done } = iterator.next()) {
+        for ({ value, done } = iterator.next(); !done && !this.compare(array[array.length - 1], value); { value, done } = iterator.next()) {
           array.push(value)
         }
 
         yield * array.sort(compare)
       }
-    }.bind(this, compareDescending), (a, b) => (this.compare as CompareFunction<TSource>)(a, b) || compareDescending(a, b)) as IOrderedEnumerable<TSource>
+    }.bind(this, compareDescending), (a, b) => this.compare(a, b) || compareDescending(a, b)) as IOrderedEnumerable<TSource>
   }
 
   toArray (this: IEnumerable<TSource>): TSource[] {
@@ -804,8 +797,8 @@ export class Enumerable<TSource> implements IEnumerable<TSource> {
   toLookup<TKey, TValue> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>, selectValue: IndexedSelectFunction<TSource, TValue>): Map<TKey, Set<TValue>>
   toLookup<TKey, TValue> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>, selectValue?: IndexedSelectFunction<TSource, TValue>): Map<TKey, Set<TSource>> | Map<TKey, Set<TValue>> {
     return selectValue === undefined
-      ? this.select(selectEntry(selectKey, selectFn as SelectFunction<TSource, TSource>)).aggregate(aggregateGroup, new Map<TKey, Set<TSource>>()) as Map<TKey, Set<TSource>>
-      : this.select(selectEntry(selectKey, selectValue)).aggregate(aggregateGroup, new Map<TKey, Set<TValue>>()) as Map<TKey, Set<TValue>>
+      ? this.select(selectEntry(selectKey, selectFn as SelectFunction<TSource, TSource>)).aggregate(aggregateGroup as AggregateFunction<[TKey, TSource], Map<TKey, Set<TSource>>>, new Map<TKey, Set<TSource>>())
+      : this.select(selectEntry(selectKey, selectValue)).aggregate(aggregateGroup as AggregateFunction<[TKey, TValue], Map<TKey, Set<TValue>>>, new Map<TKey, Set<TValue>>())
   }
 
   union (this: IEnumerable<TSource>, second: IEnumerable<TSource>, equality: EqualityFunction<TSource> = equalityFn): Enumerable<TSource> {

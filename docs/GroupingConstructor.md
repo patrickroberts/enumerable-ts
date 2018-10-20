@@ -14,7 +14,7 @@
 
 ```ts
 interface GroupingConstructor extends EnumerableConstructor {
-  readonly prototype: Grouping<any, any>
+  readonly prototype: IGrouping<any, any>
 
   new<TSource, TKey> (iterator: () => IterableIterator<TSource>, key: TKey): Grouping<TKey, TSource>
   new<TSource, TKey> (iterator: () => IterableIterator<TSource>, compare: undefined, key: TKey): Grouping<TSource, TKey>

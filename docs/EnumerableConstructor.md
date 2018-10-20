@@ -14,7 +14,7 @@
 
 ```ts
 interface EnumerableConstructor {
-  readonly prototype: Enumerable<any>
+  readonly prototype: IEnumerable<any>
 
   new<TSource> (iterator: () => IterableIterator<TSource>, compare?: undefined): Enumerable<TSource>
   new<TSource> (iterator: () => IterableIterator<TSource>, compare: CompareFunction<TSource>): IOrderedEnumerable<TSource>

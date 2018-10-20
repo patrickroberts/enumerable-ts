@@ -107,8 +107,6 @@ interface IEnumerable<TSource> {
 
   toArray (this: IEnumerable<TSource>): TSource[]
 
-  toJSON (this: IEnumerable<TSource>): IEnumerable<TSource>
-
   toMap<TKey> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>): Map<TKey, TSource>
   toMap<TKey, TValue> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>, selectValue: IndexedSelectFunction<TSource, TValue>): Map<TKey, TValue>
 

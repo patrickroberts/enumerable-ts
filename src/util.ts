@@ -40,6 +40,6 @@ export const resultFn = <TFirst, TSecond> (first: TFirst, second: TSecond): [TFi
 export const predicateFn = () => true
 export const equalityFn = (a: any, b: any) => a === b || (a !== a && b !== b)
 export const compareFn = (a: any, b: any) => -(a < b) || +(a > b)
-export const generatorFn = function * (): IterableIterator<any> {}
+export const generatorFn = function * (): IterableIterator<any> { return }
 
 import { IEnumerable } from './enumerable'
