@@ -47,6 +47,8 @@ export {
 }
 
 declare global {
+  const Enumerable: EnumerableConstructor
+
   interface Array<T> extends IEnumerable<T> { }
   interface Map<K, V> extends IEnumerable<[K, V]> { }
   interface Set<T> extends IEnumerable<T> { }
