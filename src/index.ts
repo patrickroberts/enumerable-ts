@@ -13,10 +13,17 @@ import {
   IOrderedGrouping
 } from './enumerable'
 
-Object.defineProperty(global, 'Enumerable', {
-  configurable: true,
-  writable: true,
-  value: Enumerable
+Object.defineProperties(global, {
+  Enumerable: {
+    configurable: true,
+    writable: true,
+    value: Enumerable
+  },
+  Grouping: {
+    configurable: true,
+    writable: true,
+    value: Grouping
+  }
 })
 
 const TypedArray: TypedArrayConstructor = Object.getPrototypeOf(Uint8Array)
@@ -48,6 +55,7 @@ export {
 
 declare global {
   const Enumerable: EnumerableConstructor
+  const Grouping: GroupingConstructor
 
   interface Array<T> extends IEnumerable<T> { }
   interface Map<K, V> extends IEnumerable<[K, V]> { }
