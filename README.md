@@ -7,10 +7,10 @@ core language specification that implement the iterable protocol.
 
 ## Why enumerable-ts?
 
-enumerable-ts is designed to fulfill the same purpose as the IEnumerable
-interface from C#. It provides a collection of extension methods to the built-in
-classes that use deferred execution for declaring complex queries and iterating
-large collections with efficient memory consumption.
+enumerable-ts is designed to fulfill the same purpose as the Enumerable class
+from C#. It provides a collection of extension methods to the built-in classes
+and uses deferred execution for declaring complex queries and iterating large
+collections with efficient memory consumption.
 
 This is possible through the use of generator functions. Generator functions
 provide a way of expressing deferred execution consumed through the iterator
@@ -27,21 +27,37 @@ $ npm i --save enumerable-ts
 
 #### ES2015
 
-```js
+```ts
 import 'enumerable-ts'
 ```
 
 #### CommonJS
 
-```js
+```ts
 require('enumerable-ts')
 ```
+
+### Example
+
+```ts
+const array: object[] = getBigData() // some large array
+const query = array.selectMany(Object.entries).take(5)
+
+for (const [key: string, value: any] of query) {
+  console.log(key, value)
+}
+```
+
+Because of deferred execution, `Object.entries()` is only evaluated on however
+many objects required to yield a total of 5 key / value pairs, and isn't
+evaluated at all until the query is actually iterated by the `for...of` loop,
+which calls and consumes `query[Symbol.iterator]()` to yield its 5 entries.
 
 # [Documentation](docs/)
 
 ## FAQ
 
-#### Why are `concat()`, `join()`, and `reverse()` only on `Enumerable` and not on the `IEnumerable` interface?
+#### Why are `concat()`, `join()`, `reverse()`, and `toJSON()` only on `Enumerable` and not on the `IEnumerable` interface?
 
 In order to remain polymorphic, all the `IEnumerable` interface methods must be
 forward-compatible with the methods on all of its implementing classes. Since
