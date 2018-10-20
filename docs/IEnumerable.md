@@ -54,7 +54,6 @@ interface IEnumerable<TSource> {
   firstOrDefault (this: IEnumerable<TSource>, element: TSource, predicate?: PredicateFunction<TSource>, context?: any): TSource
 
   groupBy<TKey> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>): Enumerable<IGrouping<TKey, TSource>>
-
   groupBy<TKey, TElement> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>, selectElement: IndexedSelectFunction<TSource, TElement>): Enumerable<IGrouping<TKey, TElement>>
   groupBy<TKey, TElement, TResult> (this: IEnumerable<TSource>, selectKey: IndexedSelectFunction<TSource, TKey>, selectElement: IndexedSelectFunction<TSource, TElement>, selectResult: ResultFunction<TKey, IEnumerable<TElement>, TResult>): Enumerable<TResult>
 
