@@ -23,8 +23,8 @@ const TypedArray: TypedArrayConstructor = Object.getPrototypeOf(Uint8Array)
 
 for (const Constructor of [Array, Map, TypedArray, Set, String]) {
   strictEqual(
-    Object.getPrototypeOf(Constructor), Object,
-    `${Constructor.name} does not directly extend Object`
+    Object.getPrototypeOf(Constructor), Function.prototype,
+    `${Constructor.name} does not directly extend Function.prototype`
   )
   strictEqual(
     Object.getPrototypeOf(Constructor.prototype), Object.prototype,
