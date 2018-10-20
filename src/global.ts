@@ -1,5 +1,5 @@
 import {
-  strict as assert
+  strictEqual
 } from 'assert'
 
 import {
@@ -22,11 +22,11 @@ Object.defineProperty(global, 'Enumerable', {
 const TypedArray: TypedArrayConstructor = Object.getPrototypeOf(Uint8Array)
 
 for (const Constructor of [Array, Map, TypedArray, Set, String]) {
-  assert.strictEqual(
+  strictEqual(
     Object.getPrototypeOf(Constructor), Object,
     `${Constructor.name} does not directly extend Object`
   )
-  assert.strictEqual(
+  strictEqual(
     Object.getPrototypeOf(Constructor.prototype), Object.prototype,
     `${Constructor.name}.prototype does not directly extend Object.prototype`
   )
