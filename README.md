@@ -47,7 +47,7 @@ Because of deferred execution, the original `array` is only iterated _once_ by `
 * `array.concat(…)` -> `enumerable.concat(…)`*
 * `array.every(…)` -> `enumerable.all(…)`
 * `array.filter(…)` -> `enumerable.where(…)`
-* `array.find(…)` -> `enumerable.single(…)`
+* `array.find(…)` -> `enumerable.first(…)`
 * `array.flatMap(…)` -> `enumerable.selectMany(…)`
 * `array.map(…)` -> `enumerable.select(…)`
 * `array.reduce(…)` -> `enumerable.aggregate(…)`
